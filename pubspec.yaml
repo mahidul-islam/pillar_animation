@@ -1,0 +1,43 @@
+name: animation
+description: A new Flutter project.
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+
+  uses-material-design: true
+  fonts:
+    - family: SFProText
+      fonts:
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Black.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-BlackItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Bold.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-BoldItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Heavy.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-HeavyItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Light.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-LightItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Medium.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-MediumItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Regular.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-RegularItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Semibold.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-SemiboldItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Thin.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-ThinItalic.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-Ultralight.otf
+        - asset: assets/fonts/SF-Pro-Text/SF-Pro-Text-UltralightItalic.otf
