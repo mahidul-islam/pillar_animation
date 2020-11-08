@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                   ));
                 },
                 child: Text(
-                  'Second Page',
+                  'Next Page',
                   style: TextStyle(color: SGColors.white),
                 ),
               ),

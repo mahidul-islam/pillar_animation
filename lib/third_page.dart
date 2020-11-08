@@ -1,20 +1,22 @@
-import 'package:animation/third_page.dart';
+import 'dart:math';
+
+import 'package:animation/fourth_page.dart';
+import 'package:animation/main.dart';
 import 'package:flutter/material.dart';
 
-import 'main.dart';
-
-class SecondPage extends StatefulWidget {
-  SecondPage({Key key}) : super(key: key);
+class ThirdPage extends StatefulWidget {
+  ThirdPage({Key key}) : super(key: key);
 
   @override
-  _SecondPageState createState() => _SecondPageState();
+  _ThirdPageState createState() => _ThirdPageState();
 }
 
-class _SecondPageState extends State<SecondPage>
+class _ThirdPageState extends State<ThirdPage>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
-  Animation _colorAnimation;
-  Animation _sizeAnimation;
+  // Animation _colorAnimation;
+  // Animation _sizeAnimation;
+  Animation _rotationAnimation;
 
   @override
   void initState() {
@@ -22,18 +24,23 @@ class _SecondPageState extends State<SecondPage>
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1),
     );
 
-    _colorAnimation = ColorTween(
-      begin: SGColors.ceruleanBlue,
-      end: SGColors.greenBlue,
+    _rotationAnimation = Tween<double>(
+      begin: 0,
+      end: 2 * pi,
     ).animate(_controller);
 
-    _sizeAnimation = Tween<double>(
-      begin: 100.0,
-      end: 200.0,
-    ).animate(_controller);
+    // _colorAnimation = ColorTween(
+    //   begin: Colors.blue,
+    //   end: Colors.yellow,
+    // ).animate(_controller);
+
+    // _sizeAnimation = Tween<double>(
+    //   begin: 100.0,
+    //   end: 200.0,
+    // ).animate(_controller);
 
     _controller.addListener(() {
       setState(() {});
@@ -48,14 +55,17 @@ class _SecondPageState extends State<SecondPage>
       body: SizedBox.expand(
         child: Stack(
           children: [
-            _backButton(context),
             Center(
-              child: Container(
-                height: _sizeAnimation.value,
-                width: _sizeAnimation.value,
-                color: _colorAnimation.value,
+              child: Transform.rotate(
+                angle: _rotationAnimation.value,
+                child: Container(
+                  height: 100,
+                  width: 100,
+                  color: SGColors.neonRed,
+                ),
               ),
             ),
+            _backButton(context),
             _nextPageButton(context),
           ],
         ),
@@ -75,7 +85,7 @@ Widget _nextPageButton(BuildContext context) {
       onPressed: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (BuildContext context) {
-            return ThirdPage();
+            return FourthPage();
           },
         ));
       },
