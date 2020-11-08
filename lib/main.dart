@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:animation/second_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,6 +27,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  double _endValue = 0;
+  static final sinePeriod = 2 * pi;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,9 +37,83 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Transform.rotate(
-              angle: pi / 4,
+            TweenAnimationBuilder(
+              tween: Tween<double>(begin: 0, end: _endValue),
+              duration: Duration(milliseconds: 2000),
+              builder: (_, double value, Widget child) {
+                double offset = sin(value);
+                return Transform.translate(
+                  offset: Offset(0, offset * 100),
+                  child: child,
+                );
+              },
               child: LetterP(),
+            ),
+            Positioned(
+              top: 50,
+              right: 50,
+              child: FadedLetterP(),
+            ),
+            Positioned(
+              top: 50,
+              left: 50,
+              child: RotatedLetterP(),
+            ),
+            Positioned(
+              bottom: 100,
+              height: 48,
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  MaterialButton(
+                    height: double.infinity,
+                    color: SGColors.greenBlue,
+                    onPressed: () {
+                      setState(() {
+                        _endValue = sinePeriod;
+                      });
+                    },
+                    child: Text(
+                      'Start !!!',
+                      style: TextStyle(color: SGColors.white),
+                    ),
+                  ),
+                  MaterialButton(
+                    color: SGColors.greenBlue,
+                    height: double.infinity,
+                    onPressed: () {
+                      setState(() {
+                        _endValue = 0;
+                      });
+                    },
+                    child: Text(
+                      'Stop ...',
+                      style: TextStyle(color: SGColors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              height: 56,
+              width: MediaQuery.of(context).size.width,
+              child: MaterialButton(
+                height: double.infinity,
+                color: SGColors.greenBlue,
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return SecondPage();
+                    },
+                  ));
+                },
+                child: Text(
+                  'Second Page',
+                  style: TextStyle(color: SGColors.white),
+                ),
+              ),
             ),
           ],
         ),
@@ -53,9 +130,30 @@ class LetterP extends StatelessWidget {
       style: TextStyle(
         color: SGColors.blue,
         fontFamily: 'SFProText',
-        fontSize: 50,
+        fontSize: 56,
         fontWeight: FontWeight.w600,
       ),
+    );
+  }
+}
+
+class FadedLetterP extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 100),
+      opacity: 0.5,
+      child: LetterP(),
+    );
+  }
+}
+
+class RotatedLetterP extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Transform.rotate(
+      angle: pi / 4,
+      child: LetterP(),
     );
   }
 }
