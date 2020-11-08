@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:animation/fourth_page.dart';
 import 'package:animation/second_page.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return SecondPage();
+                      return FourthPage();
                     },
                   ));
                 },

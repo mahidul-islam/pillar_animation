@@ -43,6 +43,12 @@ class _SecondPageState extends State<SecondPage>
   }
 
   @override
+  dispose() {
+    _controller.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox.expand(

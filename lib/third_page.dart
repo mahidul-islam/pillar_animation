@@ -50,6 +50,12 @@ class _ThirdPageState extends State<ThirdPage>
   }
 
   @override
+  dispose() {
+    _controller.dispose(); // you need this
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox.expand(
@@ -67,45 +73,74 @@ class _ThirdPageState extends State<ThirdPage>
             ),
             _backButton(context),
             _nextPageButton(context),
+            _pausePlayButton(context),
           ],
         ),
       ),
     );
   }
-}
 
-Widget _nextPageButton(BuildContext context) {
-  return Positioned(
-    bottom: 0,
-    height: 56,
-    width: MediaQuery.of(context).size.width,
-    child: MaterialButton(
-      height: double.infinity,
-      color: SGColors.greenBlue,
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (BuildContext context) {
-            return FourthPage();
-          },
-        ));
-      },
-      child: Text(
-        'Next Page',
-        style: TextStyle(color: SGColors.white),
+  Widget _pausePlayButton(BuildContext context) {
+    return Positioned(
+      right: 16,
+      bottom: 72,
+      child: Column(
+        children: [
+          FloatingActionButton(
+            heroTag: 'two',
+            onPressed: () {
+              _controller.repeat();
+            },
+            child: Icon(Icons.play_arrow),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          FloatingActionButton(
+            heroTag: 'one',
+            onPressed: () {
+              _controller.stop();
+            },
+            child: Icon(Icons.pause),
+          ),
+        ],
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _backButton(BuildContext context) {
-  return Positioned(
-    left: 10,
-    top: 40,
-    child: IconButton(
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-      icon: Icon(Icons.arrow_back_ios),
-    ),
-  );
+  Widget _nextPageButton(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      height: 56,
+      width: MediaQuery.of(context).size.width,
+      child: MaterialButton(
+        height: double.infinity,
+        color: SGColors.greenBlue,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(
+            builder: (BuildContext context) {
+              return FourthPage();
+            },
+          ));
+        },
+        child: Text(
+          'Next Page',
+          style: TextStyle(color: SGColors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget _backButton(BuildContext context) {
+    return Positioned(
+      left: 10,
+      top: 40,
+      child: IconButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animation/main.dart';
+import 'package:animation/second_page.dart';
 import 'package:flutter/material.dart';
 
 class FourthPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _FourthPageState extends State<FourthPage>
   // Animation _colorAnimation;
   // Animation _sizeAnimation;
   Animation _rotationAnimation;
+  Animation _displaceAnimation;
 
   @override
   void initState() {
@@ -26,9 +28,11 @@ class _FourthPageState extends State<FourthPage>
       duration: Duration(seconds: 2),
     );
 
+    _do();
+
     _rotationAnimation = Tween<double>(
       begin: 0,
-      end: 2 * pi,
+      end: 6 * pi,
     ).animate(_controller);
 
     // _colorAnimation = ColorTween(
@@ -48,12 +52,32 @@ class _FourthPageState extends State<FourthPage>
     _controller.repeat();
   }
 
+  _do() async {
+    await Future.delayed(const Duration(milliseconds: 50));
+    _displaceAnimation = Tween<double>(
+      begin: 0,
+      end: MediaQuery.of(context).size.width,
+    ).animate(_controller);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox.expand(
         child: Stack(
           children: [
+            Positioned(
+              left: _displaceAnimation.value,
+              top: MediaQuery.of(context).size.height / 2,
+              child: Transform.rotate(
+                angle: _rotationAnimation.value,
+                child: Container(
+                  color: SGColors.apple,
+                  height: 50,
+                  width: 50,
+                ),
+              ),
+            ),
             _backButton(context),
             _nextPageButton(context),
           ],
@@ -72,11 +96,11 @@ Widget _nextPageButton(BuildContext context) {
       height: double.infinity,
       color: SGColors.greenBlue,
       onPressed: () {
-        // Navigator.push(context, MaterialPageRoute(
-        //   builder: (BuildContext context) {
-        //     return FourthPage();
-        //   },
-        // ));
+        Navigator.push(context, MaterialPageRoute(
+          builder: (BuildContext context) {
+            return SecondPage();
+          },
+        ));
       },
       child: Text(
         'Next Page',
