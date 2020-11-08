@@ -119,7 +119,7 @@ class _ThirdPageState extends State<ThirdPage>
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (BuildContext context) {
-              return FourthPage();
+              return HomePage();
             },
           ));
         },
