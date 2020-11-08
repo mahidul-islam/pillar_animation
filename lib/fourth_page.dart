@@ -28,12 +28,13 @@ class _FourthPageState extends State<FourthPage>
       duration: Duration(seconds: 2),
     );
 
-    _do();
+    _controller.addListener(() {
+      setState(() {});
+    });
 
-    _rotationAnimation = Tween<double>(
-      begin: 0,
-      end: 6 * pi,
-    ).animate(_controller);
+    _controller.repeat();
+
+    _do();
 
     // _colorAnimation = ColorTween(
     //   begin: Colors.blue,
@@ -44,12 +45,6 @@ class _FourthPageState extends State<FourthPage>
     //   begin: 100.0,
     //   end: 200.0,
     // ).animate(_controller);
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-
-    _controller.repeat();
   }
 
   _do() async {
@@ -57,6 +52,11 @@ class _FourthPageState extends State<FourthPage>
     _displaceAnimation = Tween<double>(
       begin: 0,
       end: MediaQuery.of(context).size.width,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
+
+    _rotationAnimation = Tween<double>(
+      begin: 0,
+      end: 4 * pi,
     ).animate(_controller);
   }
 
@@ -67,8 +67,8 @@ class _FourthPageState extends State<FourthPage>
         child: Stack(
           children: [
             Positioned(
-              left: _displaceAnimation.value,
-              top: MediaQuery.of(context).size.height / 2,
+              top: _displaceAnimation.value + 100,
+              left: MediaQuery.of(context).size.width / 2 + 50,
               child: Transform.rotate(
                 angle: _rotationAnimation.value,
                 child: Container(
@@ -76,6 +76,23 @@ class _FourthPageState extends State<FourthPage>
                   height: 50,
                   width: 50,
                 ),
+              ),
+            ),
+            Positioned(
+              top: _displaceAnimation.value + 100,
+              left: MediaQuery.of(context).size.width / 2 - 100,
+              child: Container(
+                color: SGColors.orangeyRed,
+                height: 50,
+                width: 50,
+              ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).size.width + 150,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 2,
+                color: SGColors.charcoalGrey,
               ),
             ),
             _backButton(context),
